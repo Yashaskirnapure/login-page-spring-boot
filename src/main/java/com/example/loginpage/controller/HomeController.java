@@ -32,16 +32,11 @@ public class HomeController {
 
 	@PostMapping("/createuser")
 	public String createUser(@ModelAttribute UserDtls user, HttpSession session){
-		if(userService.existsByEmail(user.getEmail())) {
-			session.setAttribute("msg", "Email already exists");
-		}
-		else{
-			UserDtls new_user = userService.createUser(user);
-			if(new_user != null){
-				session.setAttribute("msg", "Registered successfully");
-			}else {
-				session.setAttribute("msg", "something went wrong, please try again");
-			}
+		String msg = userService.createUser(user);
+		if(msg != null) {
+			session.setAttribute("msg", msg);
+		}else {
+			session.setAttribute("msg", "Registration successful");
 		}
 		return "redirect:/register";
 	}

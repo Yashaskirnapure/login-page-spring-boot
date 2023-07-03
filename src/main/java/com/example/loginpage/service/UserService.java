@@ -4,7 +4,6 @@ import com.example.loginpage.model.UserDtls;
 import org.springframework.stereotype.Service;
 
 public interface UserService {
-    UserDtls createUser(UserDtls user);
-    Boolean existsByEmail(String email);
+    String createUser(UserDtls user);
     UserDtls findByEmail(String email);
 }

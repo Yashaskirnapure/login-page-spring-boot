@@ -25,6 +25,7 @@ public class UserController {
         UserDtls user = userService.findByEmail(email);
         m.addAttribute("user", user);
     }
+
     @GetMapping("")
     public String home(){
         return "home";

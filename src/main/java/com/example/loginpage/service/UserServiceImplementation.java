@@ -15,18 +15,22 @@ public class UserServiceImplementation implements UserService{
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public UserDtls createUser(UserDtls user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("ROLE_USER");
-        return userRepository.save(user);
+    public String createUser(UserDtls user) {
+        if(userRepository.existsByEmail(user.getEmail())){
+            return "Email already exists";
+        }else if(userRepository.existsByEmployeeId(user.getEmployeeId())){
+            return "Employee already exists";
+        }else{
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRole("ROLE_USER");
+            userRepository.save(user);
+        }
+        return null;
     }
 
-    @Override
-    public Boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
-    }
     @Override
     public UserDtls findByEmail(String email){
         return userRepository.findByEmail(email);
     }
+
 }

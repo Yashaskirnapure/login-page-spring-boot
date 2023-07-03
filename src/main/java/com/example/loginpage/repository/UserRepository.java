@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserRepository extends JpaRepository<UserDtls, Integer> {
     Boolean existsByEmail(String email);
     UserDtls findByEmail(String email);
+    Boolean existsByEmployeeId(String empId);
 }
