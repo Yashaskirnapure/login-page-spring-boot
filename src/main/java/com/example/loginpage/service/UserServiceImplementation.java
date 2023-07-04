@@ -20,7 +20,10 @@ public class UserServiceImplementation implements UserService{
             return "Email already exists";
         }else if(userRepository.existsByEmployeeId(user.getEmployeeId())){
             return "Employee already exists";
-        }else{
+        }else if(user.getMobileNum().length() != 10){
+            return "Enter valid mobile number";
+        }
+        else{
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRole("ROLE_USER");
             userRepository.save(user);
