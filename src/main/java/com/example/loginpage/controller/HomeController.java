@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,7 +32,10 @@ public class HomeController {
 	}
 
 	@PostMapping("/createuser")
-	public String createUser(@ModelAttribute UserDtls user, HttpSession session){
+	public String createUser(@ModelAttribute UserDtls user, @RequestParam("gender") String gender,
+							 @RequestParam("role") String role, HttpSession session){
+		user.setGender(gender);
+		user.setRole(role);
 		String msg = userService.createUser(user);
 		if(msg != null) {
 			session.setAttribute("msg", msg);

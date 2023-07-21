@@ -40,6 +40,11 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .headers()
+                .xssProtection()
+                .and()
+                .contentSecurityPolicy("script-src 'self'");
+        http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> {
                     auth.antMatchers("/admin/**").hasRole("ADMIN");

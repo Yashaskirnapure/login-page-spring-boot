@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -18,10 +19,15 @@ public class AdminController {
     private UserService userService;
 
     @ModelAttribute
-    public void getAdminDetails(Model m, Principal p){
+    public void getAdminDetails(Model m, Principal p) {
         String email = p.getName();
         UserDtls user = userService.findByEmail(email);
         m.addAttribute("user", user);
+    }
+    @ModelAttribute
+    public void getAllUsers(Model m, Principal p){
+        List<UserDtls> users = userService.getAllUsers();
+        m.addAttribute("users", users);
     }
 
     @GetMapping("")
